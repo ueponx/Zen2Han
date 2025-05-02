@@ -3,8 +3,31 @@ chrome.runtime.onInstalled.addListener(function(details) {
   // デフォルトでは拡張機能を有効にする
   chrome.storage.local.set({enabled: true}, function() {
     console.log('[Zen2Han] 拡張機能がインストールされ、有効化されました');
+    // 有効アイコンを設定
+    updateIcon(true);
   });
 });
+
+// アイコンの状態を更新する関数
+function updateIcon(isEnabled) {
+  const iconPath = isEnabled ? {
+    16: 'images/icon16-active.png',
+    48: 'images/icon48-active.png',
+    128: 'images/icon128-active.png'
+  } : {
+    16: 'images/icon16.png',
+    48: 'images/icon48.png',
+    128: 'images/icon128.png'
+  };
+  
+  chrome.action.setIcon({path: iconPath}, function() {
+    if (chrome.runtime.lastError) {
+      console.error('[Zen2Han] アイコン更新エラー:', chrome.runtime.lastError);
+    } else {
+      console.log('[Zen2Han] アイコンを更新しました:', isEnabled ? '有効' : '無効');
+    }
+  });
+}
 
 // アイコンクリック時のアクション（ポップアップが開く）
 chrome.action.onClicked.addListener(function(tab) {
@@ -26,6 +49,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     const isEnabled = request.enabled;
     chrome.storage.local.set({enabled: isEnabled}, function() {
       console.log('[Zen2Han] 拡張機能の状態を変更: ' + (isEnabled ? '有効' : '無効'));
+      
+      // アイコンを更新
+      updateIcon(isEnabled);
       
       // 現在アクティブなタブに新しい状態を通知
       chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {

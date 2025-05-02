@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (response && response.enabled !== undefined) {
       toggleSwitch.checked = response.enabled;
       updateStatusText(response.enabled);
+      
+      // アイコンの状態を初期化（念のため）
+      updateIcon(response.enabled);
     }
   });
   
@@ -30,5 +33,13 @@ document.addEventListener('DOMContentLoaded', function() {
   function updateStatusText(isEnabled) {
     statusText.textContent = '現在: ' + (isEnabled ? '有効' : '無効');
     statusText.style.color = isEnabled ? '#2e7d32' : '#c62828';
+  }
+  
+  // アイコンを更新する関数（バックグラウンドスクリプトを呼び出す）
+  function updateIcon(isEnabled) {
+    chrome.runtime.sendMessage({
+      action: 'setState',
+      enabled: isEnabled
+    });
   }
 });
