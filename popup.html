@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Zen2Han 設定</title>
+  <style>
+    body {
+      width: 200px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding: 15px;
+      margin: 0;
+    }
+    h1 {
+      font-size: 16px;
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .toggle-label {
+      margin-left: 10px;
+      font-size: 14px;
+      color: #444;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 20px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+    .status {
+      font-size: 12px;
+      color: #666;
+      font-style: italic;
+    }
+    .footer {
+      margin-top: 15px;
+      font-size: 11px;
+      color: #888;
+      text-align: center;
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Zen2Han 設定</h1>
+  
+  <div class="toggle-container">
+    <label class="switch">
+      <input type="checkbox" id="toggleSwitch">
+      <span class="slider"></span>
+    </label>
+    <span class="toggle-label">全角→半角変換</span>
+  </div>
+  
+  <div class="status" id="statusText">
+    現在: 有効
+  </div>
+  
+  <div class="footer">
+    Zen2Han v1.0
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
