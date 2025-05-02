@@ -22,10 +22,11 @@
 
 ## インストール方法
 
-### 手動インストール (開発者向け)
+### 開発モードでのインストール
+
 1. このリポジトリをクローンまたはダウンロード
    ```
-   git clone https://github.com/yourusername/zen2han.git
+   git clone https://github.com/ueponx/zen2han.git
    ```
 2. Chrome ブラウザで `chrome://extensions` を開く
 3. 右上の「デベロッパーモード」をオンにする
